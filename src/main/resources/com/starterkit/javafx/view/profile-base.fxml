@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?scenebuilder-preview-i18n-resource ../bundle/search.properties?>
+<?scenebuilder-stylesheet ../css/standard.css?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="370.0" prefWidth="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.javafx.controller.ViewImagesController">
+   <children>
+      <ScrollPane layoutX="-2.0" layoutY="24.0" prefHeight="353.0" prefViewportHeight="375.0" prefViewportWidth="500.0" prefWidth="504.0">
+         <content>
+            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+
+            </ImageView>
+         </content>
+      </ScrollPane>
+      <BorderPane prefHeight="25.0" prefWidth="502.0">
+         <left>
+         	  <Button fx:id="slideButton" mnemonicParsing="false" onAction="#slideButtonAction" prefWidth="150.0" text="%button.slide" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+         	  <Button fx:id="chooseButton" mnemonicParsing="false" onAction="#chooseButtonAction" prefWidth="150.0" text="%button.choose" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <BorderPane prefHeight="25.0" prefWidth="175.0" BorderPane.alignment="CENTER">
+               <right>
+                  <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomInButtonAction" prefHeight="25.0" prefWidth="101.0" text="%button.zoomIn" BorderPane.alignment="CENTER" />
+               </right>
+               <left>
+                  <Button fx:id="zoomOutButton" mnemonicParsing="false" onAction="#zoomOutButtonAction" prefHeight="25.0" prefWidth="101.0" text="%button.zoomOut" BorderPane.alignment="CENTER" />
+               </left>
+            </BorderPane>
+         </center>
+      </BorderPane>
+      <BorderPane prefHeight="377.0" prefWidth="45.0">
+         <right>
+         	  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="200.0" prefWidth="30.0" text="%button.previous" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+      <BorderPane layoutX="450.0" prefHeight="377.0" prefWidth="36.0">
+         <left>
+         	  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextButtonAction" prefHeight="200.0" prefWidth="30.0" text="%button.next" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>
