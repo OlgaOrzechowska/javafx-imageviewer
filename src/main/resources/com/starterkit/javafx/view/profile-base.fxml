@@ -7,15 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="370.0" prefWidth="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.javafx.controller.ViewImagesController">
+<AnchorPane prefHeight="370.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.javafx.controller.ViewImagesController">
    <children>
-      <ScrollPane layoutX="-2.0" layoutY="24.0" prefHeight="353.0" prefViewportHeight="375.0" prefViewportWidth="500.0" prefWidth="504.0">
-         <content>
-            <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
-
-            </ImageView>
-         </content>
-      </ScrollPane>
       <BorderPane prefHeight="25.0" prefWidth="502.0">
          <left>
          	  <Button fx:id="slideButton" mnemonicParsing="false" onAction="#slideButtonAction" prefWidth="150.0" text="%button.slide" BorderPane.alignment="CENTER" />
@@ -34,6 +27,21 @@
             </BorderPane>
          </center>
       </BorderPane>
+      <HBox layoutY="25.0" prefHeight="351.0" prefWidth="502.0">
+         <children>
+            <ScrollPane prefHeight="353.0" prefViewportHeight="375.0" prefViewportWidth="500.0" prefWidth="504.0">
+               <content>
+                  <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="500.0">
+                     <children>
+                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
+
+            			</ImageView>
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
       <BorderPane prefHeight="377.0" prefWidth="45.0">
          <right>
          	  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="200.0" prefWidth="30.0" text="%button.previous" BorderPane.alignment="CENTER" />
@@ -44,5 +52,11 @@
          	  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextButtonAction" prefHeight="200.0" prefWidth="30.0" text="%button.next" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
+      <BorderPane layoutX="502.0" prefHeight="377.0" prefWidth="200.0">
+         <center>
+            <ListView fx:id="imageListView" BorderPane.alignment="CENTER">
+
+     </ListView>
+         </center></BorderPane>
    </children>
 </AnchorPane>

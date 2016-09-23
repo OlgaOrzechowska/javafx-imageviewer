@@ -2,19 +2,26 @@ package com.starterkit.javafx.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
 import com.starterkit.javafx.dataprovider.DataProvider;
 import com.starterkit.javafx.model.ViewImage;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -72,6 +79,12 @@ public class ViewImagesController {
 	@FXML
 	private ImageView imageView;
 
+	@FXML
+	private ListView<String> imageListView;
+
+	@FXML
+	private HBox hBox;
+
 	private final DataProvider dataProvider = DataProvider.INSTANCE;
 
 	private static final long DELAY = 5000;
@@ -83,6 +96,33 @@ public class ViewImagesController {
 		previousButton.setDisable(true);
 		nextButton.setDisable(true);
 		slideButton.setDisable(true);
+		zoomInButton.setDisable(true);
+		zoomOutButton.setDisable(true);
+
+		imageListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue != null) {
+					LOG.debug(newValue + " selected");
+					for (int i = 0; i < model.getImages().length; i++) {
+						if (model.getImages()[i].getName().endsWith(newValue))
+							model.setSelectedIndex(i);
+					}
+				}
+				Image image = new Image(model.getImages()[model.getSelectedIndex()].toURI().toString());
+				imageView.setImage(image);
+				hBox.setPrefSize(image.getWidth(), image.getHeight());
+
+				previousButton.setDisable(model.getSelectedIndex() == 0);
+				nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
+				slideButton.setDisable(false);
+				zoomInButton.setDisable(false);
+				zoomOutButton.setDisable(false);
+			}
+		});
+
+		imageListView.itemsProperty().bind(model.imagesProperty());
 	}
 
 	@FXML
@@ -92,6 +132,7 @@ public class ViewImagesController {
 		model.setSelectedIndex(model.getSelectedIndex() - 1);
 		Image image = new Image(model.getImages()[model.getSelectedIndex()].toURI().toString());
 		imageView.setImage(image);
+		hBox.setPrefSize(image.getWidth(), image.getHeight());
 
 		previousButton.setDisable(model.getSelectedIndex() == 0);
 		nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
@@ -104,6 +145,7 @@ public class ViewImagesController {
 		model.setSelectedIndex(model.getSelectedIndex() + 1);
 		Image image = new Image(model.getImages()[model.getSelectedIndex()].toURI().toString());
 		imageView.setImage(image);
+		hBox.setPrefSize(image.getWidth(), image.getHeight());
 
 		previousButton.setDisable(model.getSelectedIndex() == 0);
 		nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
@@ -123,14 +165,19 @@ public class ViewImagesController {
 
 		if (model.getSelectedDirectory() != null) {
 			model.setImages(dataProvider.findImages(model.getSelectedDirectory()));
+			model.setImagesList(FXCollections.observableArrayList(
+					Arrays.asList(model.getImages()).stream().map(m -> m.getName()).collect(Collectors.toList())));
 			model.setSelectedIndex(0);
 
 			Image image = new Image(model.getImages()[model.getSelectedIndex()].toURI().toString());
 			imageView.setImage(image);
+			hBox.setPrefSize(image.getWidth(), image.getHeight());
 
 			previousButton.setDisable(model.getSelectedIndex() == 0);
 			nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
 			slideButton.setDisable(false);
+			zoomInButton.setDisable(false);
+			zoomOutButton.setDisable(false);
 		}
 	}
 
@@ -152,6 +199,7 @@ public class ViewImagesController {
 
 				Image image = new Image(images[model.getSelectedIndex()].toURI().toString());
 				imageView.setImage(image);
+				hBox.setPrefSize(image.getWidth(), image.getHeight());
 				previousButton.setDisable(true);
 				nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
 
@@ -178,6 +226,8 @@ public class ViewImagesController {
 
 				slideButton.setDisable(false);
 				chooseButton.setDisable(false);
+				zoomInButton.setDisable(false);
+				zoomOutButton.setDisable(false);
 			}
 		};
 
@@ -187,11 +237,24 @@ public class ViewImagesController {
 	@FXML
 	private void zoomInButtonAction() {
 		LOG.debug("'+' button clicked");
+
+		double zoomFactor = 1.05;
+		imageView.setScaleX(imageView.getScaleX() * zoomFactor);
+		imageView.setScaleY(imageView.getScaleY() * zoomFactor);
+		hBox.setPrefHeight(hBox.getPrefHeight() * zoomFactor);
+		hBox.setPrefWidth(hBox.getPrefWidth() * zoomFactor);
 	}
 
 	@FXML
 	private void zoomOutButtonAction() {
 		LOG.debug("'-' button clicked");
+
+		double zoomFactor = 0.95;
+		imageView.setScaleX(imageView.getScaleX() * zoomFactor);
+		imageView.setScaleY(imageView.getScaleY() * zoomFactor);
+		hBox.setPrefHeight(hBox.getPrefHeight() * zoomFactor);
+		hBox.setPrefWidth(hBox.getPrefWidth() * zoomFactor);
+
 	}
 
 }
