@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Person data.
  *
  */
+// REV: nieuzywana klasa
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProfileVO {
 

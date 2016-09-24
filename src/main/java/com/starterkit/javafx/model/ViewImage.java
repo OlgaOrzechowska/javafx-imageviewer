@@ -12,6 +12,7 @@ public class ViewImage {
 
 	private File selectedDirectory;
 
+	// REV: lepiej uzyc listy
 	private File[] images;
 
 	private final ListProperty<String> imagesProperty = new SimpleListProperty<>(

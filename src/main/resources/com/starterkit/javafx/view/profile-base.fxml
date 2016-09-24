@@ -17,6 +17,7 @@
          	  <Button fx:id="chooseButton" mnemonicParsing="false" onAction="#chooseButtonAction" prefWidth="150.0" text="%button.choose" BorderPane.alignment="CENTER" />
          </right>
          <center>
+         	<!-- REV: wystarczylby HBox -->
             <BorderPane prefHeight="25.0" prefWidth="175.0" BorderPane.alignment="CENTER">
                <right>
                   <Button fx:id="zoomInButton" mnemonicParsing="false" onAction="#zoomInButtonAction" prefHeight="25.0" prefWidth="101.0" text="%button.zoomIn" BorderPane.alignment="CENTER" />
@@ -27,10 +28,12 @@
             </BorderPane>
          </center>
       </BorderPane>
+      <!-- REV: ten HBox nie jest potrzebny -->
       <HBox layoutY="25.0" prefHeight="351.0" prefWidth="502.0">
          <children>
             <ScrollPane prefHeight="353.0" prefViewportHeight="375.0" prefViewportWidth="500.0" prefWidth="504.0">
                <content>
+               	  <!-- REV: ten HBox nie jest potrzebny -->
                   <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="500.0">
                      <children>
                         <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true">
@@ -42,6 +45,7 @@
             </ScrollPane>
          </children>
       </HBox>
+      <!-- REV: te BorderPane'y nie sa potrzebne -->
       <BorderPane prefHeight="377.0" prefWidth="45.0">
          <right>
          	  <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousButtonAction" prefHeight="200.0" prefWidth="30.0" text="%button.previous" BorderPane.alignment="CENTER" />

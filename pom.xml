@@ -17,6 +17,7 @@
       <scope>compile</scope>
       <version>1.2.17</version>
     </dependency>
+    <!-- REV: te zaleznosci nie sa potrzebne -->
     <dependency>
     	<groupId>org.springframework</groupId>
     	<artifactId>spring-web</artifactId>

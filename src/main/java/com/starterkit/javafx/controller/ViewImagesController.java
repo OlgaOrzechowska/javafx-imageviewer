@@ -93,6 +93,7 @@ public class ViewImagesController {
 
 	@FXML
 	public void initialize() {
+		// REV: lepiej uzyc bindow
 		previousButton.setDisable(true);
 		nextButton.setDisable(true);
 		slideButton.setDisable(true);
@@ -114,6 +115,7 @@ public class ViewImagesController {
 				imageView.setImage(image);
 				hBox.setPrefSize(image.getWidth(), image.getHeight());
 
+				// REV: j.w.
 				previousButton.setDisable(model.getSelectedIndex() == 0);
 				nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
 				slideButton.setDisable(false);
@@ -157,6 +159,7 @@ public class ViewImagesController {
 
 		DirectoryChooser chooser = new DirectoryChooser();
 		chooser.setTitle("Selected directory");
+		// REV: a jesli nie ma dysku C:? ;-)
 		File defaultDirectory = new File("c:");
 		chooser.setInitialDirectory(defaultDirectory);
 
@@ -173,6 +176,7 @@ public class ViewImagesController {
 			imageView.setImage(image);
 			hBox.setPrefSize(image.getWidth(), image.getHeight());
 
+			// REV: j.w.
 			previousButton.setDisable(model.getSelectedIndex() == 0);
 			nextButton.setDisable(model.getSelectedIndex() + 1 == model.getImages().length);
 			slideButton.setDisable(false);
@@ -209,6 +213,7 @@ public class ViewImagesController {
 					throw new RuntimeException("Thread interrupted", e);
 				}
 
+				// REV: szkoda ze nie mozna zatrzymac slide show'a
 				while (model.getSelectedIndex() + 1 < images.length) {
 					nextButtonAction();
 					try {
@@ -224,6 +229,7 @@ public class ViewImagesController {
 			protected void succeeded() {
 				LOG.debug("succeeded() called");
 
+				// REV: j.w.
 				slideButton.setDisable(false);
 				chooseButton.setDisable(false);
 				zoomInButton.setDisable(false);
@@ -231,6 +237,7 @@ public class ViewImagesController {
 			}
 		};
 
+		// REV: lepiej byloby uzyc klasy timer
 		new Thread(backgroundTask).start();
 	}
 
